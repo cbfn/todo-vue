@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import store from '../store'
 export interface Todo {
   id: string
   title: string
   done: boolean
 }
-defineProps<{ todos: Todo[]; removeTodo: Function }>()
+defineProps<{ todos: Todo[] }>()
 </script>
 
 <template>
-  <TransitionGroup name="list" tag="ul" class="flex flex-col mt-8 space-y-2">
+  <TransitionGroup
+    name="list"
+    tag="ul"
+    class="flex flex-col space-y-2"
+    :class="{ 'mt-8': todos?.length > 0 }"
+  >
     <li
       v-for="todo in todos"
       :key="todo.id"
@@ -20,7 +26,7 @@ defineProps<{ todos: Todo[]; removeTodo: Function }>()
           v-if="todo.done"
           type="button"
           class="mr-2 text-red-400 text-sm"
-          @click="removeTodo(todo.id)"
+          @click="store.dispatch('removeTodo', todo.id)"
         >
           remover
         </button>
