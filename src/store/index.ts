@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia'
 import { v4 as uuidv4 } from 'uuid'
 
 interface Todo {
@@ -7,23 +7,17 @@ interface Todo {
   done: boolean
 }
 
-export default createStore({
-  state: {
+export const useTodos = defineStore('todos', {
+  state: () => ({
     todos: [] as Todo[]
-  },
-  mutations: {
-    SET_TODOS(state, todos) {
-      state.todos = todos
-    },
-    REMOVE_TODOS(state, id) {
-      state.todos = state.todos.filter((todo) => todo.id !== id)
-    },
-    ADD_TODOS(state, payload) {
-      state.todos.push(payload)
+  }),
+  getters: {
+    allTodos(state) {
+      return state.todos
     }
   },
   actions: {
-    fetchTodos(context) {
+    fetchTodos() {
       const todos = [
         {
           id: uuidv4(),
@@ -46,18 +40,13 @@ export default createStore({
           done: true
         }
       ]
-      context.commit('SET_TODOS', todos)
+      this.todos = todos
     },
-    removeTodo(context, payload) {
-      context.commit('REMOVE_TODOS', payload)
+    removeTodo(id: string) {
+      this.todos = this.todos.filter((todo) => todo.id !== id)
     },
-    addTodos(context, payload) {
-      context.commit('ADD_TODOS', payload)
-    }
-  },
-  getters: {
-    $allTodos(state) {
-      return state.todos
+    addTodos(payload: Todo) {
+      this.todos.push(payload)
     }
   }
 })

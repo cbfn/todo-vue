@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import store from '../store'
+import { useTodos } from '../store'
 export interface Todo {
   id: string
   title: string
   done: boolean
 }
 defineProps<{ todos: Todo[] }>()
+
+const todosStore = useTodos()
 </script>
 
 <template>
@@ -26,7 +28,7 @@ defineProps<{ todos: Todo[] }>()
           v-if="todo.done"
           type="button"
           class="mr-2 text-red-400 text-sm"
-          @click="store.dispatch('removeTodo', todo.id)"
+          @click="todosStore.removeTodo(todo.id)"
         >
           remover
         </button>

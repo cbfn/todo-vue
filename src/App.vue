@@ -2,10 +2,11 @@
 import TodoList from './components/TodoList.vue'
 import TodoForm from './components/TodoForm.vue'
 import { computed } from '@vue/reactivity'
-import store from './store'
+import { useTodos } from './store'
 
-store.dispatch('fetchTodos')
-const $allTodos = computed(() => store.getters.$allTodos)
+const todosStore = useTodos()
+todosStore.fetchTodos()
+const $allTodos = computed(() => todosStore.allTodos)
 </script>
 
 <template>
