@@ -13,8 +13,6 @@ I created three version of this project. One without state management and the tw
 - Clone the repository and run `yarn` and after `yarn dev`
 - To change the branches run git checkout pinia or git checkout vuex and run `yarn` and after `yarn dev`
 
-## You can see the demo here
+## Demo
 
-- [Without state management](https://todo-vue.cbfn.dev)
-- [With Vuex](https://todo-vue-vuex.cbfn.dev)
-- [With Pinia](https://todo-vue-pinia.cbfn.dev)
+- [See the demo](https://todo-vue.cbfn.dev)
